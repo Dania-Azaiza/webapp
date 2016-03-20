@@ -23,6 +23,9 @@ time, mark, audio, video {
 .hidden{
 	display:none;
 }
+.left{
+	float:left;
+}
 /**********************************************************************************************************/
 body{
 	background: url(../img/body-background.jpg);
@@ -140,6 +143,7 @@ nav>.nav-section:nth-child(3){
 
 .tabs{
 	clear: left;
+
 }
 .tabs>ul>li{
     height: 30px;
@@ -158,18 +162,32 @@ nav>.nav-section:nth-child(3){
     color: white;
 }
 .tabs>div{
+	padding: 2% 2% 2% 2%;
 	clear:left;
 	height: 200px;
 	background:rgb(235, 235, 235); 
 }
-.tabs>ul>li:hover{
+
+
+.tab-wrapper{
+	max-width: 100%;
+	background-color:white;
+	margin:auto;
+}
+.fieldset{
 	background:rgb(235, 235, 235); 
-	color:black;
-	text-decoration: black;
+	margin-bottom: 10px;
+	height: 40px;
 }
-.tabs>ul>li> a:hover{
-    color: black;
+.report-num
+{
+	width:20%;
+	float:left;
 }
-
-
-
+.input-wrapper{
+	width:40%;
+	float:left;
+}
+#quick-reports{
+	display:none;
+}

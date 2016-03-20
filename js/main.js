@@ -20,12 +20,12 @@ var onTabClick = function(element){
 var onSettingsClick=function(tab){
 	var favouritesSelect=tab.getElementsByClassName("favourites-select")[0];
 	// TODO fix check drop down list size check
-	if (favouritesSelect.getElements('option').length === 0) {
-		tab.getElementsByClassName("settings-btn")[0].setAttribute("style", "background:red;");
-	}
-	else{
+	// if (favouritesSelect.getElements('option').length === 0) {
+		// tab.getElementsByClassName("settings-btn")[0].setAttribute("style", "background:red;");
+	// }
+	// else{
 		tab.getElementsByClassName("favourites")[0].setAttribute("style", "display:none;");
-	}	
+	//}	
 };
 
 

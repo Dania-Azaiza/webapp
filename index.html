@@ -7,11 +7,6 @@
 	<title>WebApp</title>
 
 	<link rel="stylesheet" href="css/main.css">
-   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-   
-
-
 </head>
 <body>
 	<header>
@@ -76,6 +71,9 @@
 				</div>
 			</div>
 		</nav>
+<!-------------------------------------------------------------------------------------------------->
+
+
 
 		<section class="tabs">
 			<ul id="tabs-list">
@@ -86,6 +84,66 @@
 			</ul>
 
 			<div id="quick-reports">
+				<div class="tab-wrapper">
+					
+					<select class="favourites-select" name="favourites">
+					</select>
+					
+					<div class="quick-reports-options">
+						<a class="new-tab-btn" href="#" id="new-tab-btn">e</a>
+						<button class="settings-btn" id="settings-btn-quick-reports">s</button>
+					</div>
+					
+					<div id="quick-reports-form" class="favourites">
+						<form class="formSettings" id="quickreports" runat="server">
+							<fieldset class="fieldset">
+								<span class="report-num">Reprot 01</span>
+								<div class="input-wrapper">
+									<label class="" for="nameReport1">Name</label>
+									<input class="" placeholder="Site Name" id="nameReport1" type="text">
+								</div>
+								<div class="input-wrapper">
+									<label class="" for="urlReport1">URL</label>
+									<input class=" url-input" placeholder="Site Url" id="urlReport1" type="url">
+								</div>
+							</fieldset>
+
+							<fieldset class="fieldset">
+								<span class="report-num">Reprot 02</span>
+								<div class="input-wrapper">
+									<label class="" for="nameReport2">Name</label>
+									<input class="" placeholder="Site Name" id="nameReport2" type="text">
+								</div>
+								<div class="input-wrapper">
+									<label class="" for="urlReport2">URL</label>
+									<input class="" placeholder="Site Url" id="urlReport2" type="url">
+								</div>
+							</fieldset>
+							<fieldset class="fieldset">
+								<span class="report-num">Reprot 03</span>
+								<div class="input-wrapper">
+									<label class="" for="nameReport3">Name</label>
+									<input class="" placeholder="Site Name" id="nameReport3" type="text">
+								</div>
+								<div class="input-wrapper">
+									<label class="" for="urlReport3">URL</label>
+									<input type="url" class=" url-input" id="urlReport3">
+								</div>
+							</fieldset>
+
+
+
+							<div class="form-footer">
+								<a href="#" id="">Cancel</a>
+								<input id="submit" value="Save" type="submit">
+							</div>		
+						</form>
+					</div>
+					</div>
+					
+					<div class="content-quickreports folder-content hidden">
+						<iframe class="iframe iframe-quickreports" src="" frameborder="0"></iframe>
+					</div>
 			</div>
 
 			<div id="my-folders">

@@ -40,4 +40,8 @@ var LOCALSTORAGE =
 				return fullState.MyTeamFolderState;
 			}
 		};
+<<<<<<< HEAD
 }());
+=======
+}());
+>>>>>>> origin/gh-pages

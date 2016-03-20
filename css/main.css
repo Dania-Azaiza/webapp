@@ -23,6 +23,9 @@ time, mark, audio, video {
 .hidden{
 	display:none;
 }
+.left{
+	float:left;
+}
 /**********************************************************************************************************/
 body{
 	background: url(../img/body-background.jpg);
@@ -140,6 +143,7 @@ nav>.nav-section:nth-child(3){
 
 .tabs{
 	clear: left;
+
 }
 .tabs>ul>li{
     height: 30px;
@@ -158,18 +162,60 @@ nav>.nav-section:nth-child(3){
     color: white;
 }
 .tabs>div{
+	padding: 2% 2% 2% 2%;
 	clear:left;
 	height: 200px;
 	background:rgb(235, 235, 235); 
 }
-.tabs>ul>li:hover{
+
+
+.tab-wrapper{
+	max-width: 100%;
+	background-color:white;
+	margin:auto;
+}
+.fieldset{
 	background:rgb(235, 235, 235); 
-	color:black;
-	text-decoration: black;
+	margin-bottom: 10px;
+	height: 40px;
+	clear:left;
 }
-.tabs>ul>li> a:hover{
-    color: black;
+.report-num
+{
+	width:20%;
+	float:left;
+}
+.input-wrapper{
+	width:40%;
+	float:left;
+}
+#quick-reports{
+	display:none;
+}
+.select-reports{
+	float:left;
+}
+.quick-reports-options{
+	float:right;
+}
+.new-tab-btn{
+	float:right;
+}
+.settings-btn{
+	float:right;
+}
+.favourites{
+	display:block;
 }
 
-
-
+.favourites{
+	background: white none repeat scroll 0 0;
+	box-shadow: 0 2px 6px 2px rgba(50, 50, 50, 0.3);
+	height: 260px;
+	left: 0;
+	margin: 0 0 0 16px;
+	overflow: hidden;
+	padding: 16px;
+	right: 16px;
+	top: 58px;
+}

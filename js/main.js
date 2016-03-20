@@ -1,16 +1,44 @@
+
+var onTabClick = function(element){
+	var tabslist = document.getElementById("tabs-list").getElementsByTagName("li");
+	for(i = 0;i < tabslist.length; i++)
+	{
+		  tabslist[i].setAttribute("style", "background:grey;");
+		  var innerTag=tabslist[i].getElementsByTagName("a")[0];
+		  innerTag.setAttribute("style", "color:rgb(235, 235, 235);");
+		  var res = innerTag.innerHTML.replace(" ", "-").replace(" ", "-");
+	      res = res.toLowerCase();
+	      document.getElementById(res).setAttribute("style", "display:none;");	  
+	}	
+	element.setAttribute("style", "background:rgb(235, 235, 235); text-decoration:black;");
+	var innerTag=element.getElementsByTagName("a")[0];
+	innerTag.setAttribute("style", "color:black;");
+    var res = innerTag.innerHTML.replace(" ", "-").replace(" ", "-");
+    res = res.toLowerCase();
+    document.getElementById(res).setAttribute("style", "display:block;");
+};
+var onSettingsClick=function(tab){
+	var favouritesSelect=tab.getElementsByClassName("favourites-select")[0];
+	// TODO fix check drop down list size check
+	// if (favouritesSelect.getElements('option').length === 0) {
+		// tab.getElementsByClassName("settings-btn")[0].setAttribute("style", "background:red;");
+	// }
+	// else{
+		tab.getElementsByClassName("favourites")[0].setAttribute("style", "display:none;");
+	//}	
+};
+
+
 (function(){ 
-	alert("Hello");
 	
-	// var tabslist = document.getElementById("tabs-list").getElementsByTagName("a");
+	// =============== Stage 2 ===============
+	// Add event handler for tab click
+	var tabslist = document.getElementById("tabs-list").getElementsByTagName("li");
 	
-	// for(i = 0;i < tabslist.length; i++)
-	// {
-		// var onTabClick = function(){
-			// alert("dan");	
-		// };
-		// alert(tabslist[i].innerHTML);
-		// UTILS.addEvent(tabslist[i],"click",onTabClick(tabslist[i].innerHTML));
-	// }	
+	for(i = 0;i < tabslist.length; i++)
+	{
+		  (function(index) {UTILS.addEvent(tabslist[index],"click",function(){onTabClick(tabslist[index]);});})(i);
+	}	
 	
 	
 	// =============== Stage 3 ===============
@@ -29,11 +57,10 @@
 			}
 		}
 	});	
+	// =============== Stage 4 ===============
+	var settingsBtnQuickReports = document.getElementById("settings-btn-quick-reports");
+	var quickReports = document.getElementById("quick-reports");
 	
-
-	//UTILS.addEvent(tab,"click",onTabClick);
+	UTILS.addEvent(settingsBtnQuickReports, "click", function(){onSettingsClick(quickReports);});
 	
-	// for(var i=0,len=tabs.length;i<len;i=i+1){
-		// UTILS.addEvent(tabs[i],"click",tabClick);
-	// }
 }());

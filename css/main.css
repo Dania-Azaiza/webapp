@@ -178,6 +178,7 @@ nav>.nav-section:nth-child(3){
 	background:rgb(235, 235, 235); 
 	margin-bottom: 10px;
 	height: 40px;
+	clear:left;
 }
 .report-num
 {
@@ -190,4 +191,19 @@ nav>.nav-section:nth-child(3){
 }
 #quick-reports{
 	display:none;
+}
+.select-reports{
+	float:left;
+}
+.quick-reports-options{
+	float:right;
+}
+.new-tab-btn{
+	float:right;
+}
+.settings-btn{
+	float:right;
+}
+.favourites{
+	display:block;
 }

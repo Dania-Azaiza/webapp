@@ -17,6 +17,16 @@ var onTabClick = function(element){
     res = res.toLowerCase();
     document.getElementById(res).setAttribute("style", "display:block;");
 };
+var onSettingsClick=function(tab){
+	var favouritesSelect=tab.getElementsByClassName("favourites-select")[0];
+	// TODO fix check drop down list size check
+	if (favouritesSelect.getElements('option').length === 0) {
+		tab.getElementsByClassName("settings-btn")[0].setAttribute("style", "background:red;");
+	}
+	else{
+		tab.getElementsByClassName("favourites")[0].setAttribute("style", "display:none;");
+	}	
+};
 
 
 (function(){ 
@@ -47,5 +57,10 @@ var onTabClick = function(element){
 			}
 		}
 	});	
+	// =============== Stage 4 ===============
+	var settingsBtnQuickReports = document.getElementById("settings-btn-quick-reports");
+	var quickReports = document.getElementById("quick-reports");
+	
+	UTILS.addEvent(settingsBtnQuickReports, "click", function(){onSettingsClick(quickReports);});
 	
 }());

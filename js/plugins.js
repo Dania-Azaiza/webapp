@@ -10,7 +10,7 @@ var UTILS = (function () {
 		},
 
 		/**
-		 * Cross browser even handler
+		 * Cross browser event handler
 		 *
 		 * @param {Object}   elm     Element on which the event will be bound
 		 * @param {string}   type    Event type or types (e.g. 'click', 'click input')

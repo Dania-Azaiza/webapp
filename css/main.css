@@ -20,6 +20,9 @@ time, mark, audio, video {
 	list-style: none;
 }
 /*****************************************new classes****************************************************/
+.hidden{
+	display:none;
+}
 /**********************************************************************************************************/
 body{
 	background: url(../img/body-background.jpg);
@@ -55,6 +58,7 @@ header>a>img{
 	height: 20px;
 	padding:10px 1% 10px 1%;
 }
+
 .nav-section{
 	width:32%;
 	height: 170px;

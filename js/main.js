@@ -1,34 +1,28 @@
 
 var onTabClick = function(element){
-
-	
-
-
-
 	var tabslist = document.getElementById("tabs-list").getElementsByTagName("li");
 	for(i = 0;i < tabslist.length; i++)
 	{
 		  tabslist[i].setAttribute("style", "background:grey;");
-		  tabslist[i].getElementsByTagName("a")[0].setAttribute("style", "color:rgb(235, 235, 235);");
 		  var innerTag=tabslist[i].getElementsByTagName("a")[0];
 		  innerTag.setAttribute("style", "color:rgb(235, 235, 235);");
-		  var res = innerTag.innerHTML.replace(" ", "-");
+		  var res = innerTag.innerHTML.replace(" ", "-").replace(" ", "-");
 	      res = res.toLowerCase();
-	      alert(res);
 	      document.getElementById(res).setAttribute("style", "display:none;");	  
 	}	
 	element.setAttribute("style", "background:rgb(235, 235, 235); text-decoration:black;");
 	var innerTag=element.getElementsByTagName("a")[0];
 	innerTag.setAttribute("style", "color:black;");
-    var res = innerTag.innerHTML.replace(" ", "-");
+    var res = innerTag.innerHTML.replace(" ", "-").replace(" ", "-");
     res = res.toLowerCase();
     document.getElementById(res).setAttribute("style", "display:block;");
-
 };
 
 
 (function(){ 
 	
+	// =============== Stage 2 ===============
+	// Add event handler for tab click
 	var tabslist = document.getElementById("tabs-list").getElementsByTagName("li");
 	
 	for(i = 0;i < tabslist.length; i++)

@@ -43,19 +43,10 @@ var UTILS = (function () {
 				elem["on"+type]=null;
 			}
 		},
-		/*preventDefault:function(event){
-			if(typeof event.preventDefault!=="undefined"){
-				event.preventDefault();
-
-			}else {
-				event.returnValue=false;
-			}
-		},*/
-
-
-	},
-	
-	/**
+		
+		
+		
+		/**
 	 * AJAX helper function (similar to jQuery, but far from it!)
 	 *
 	 * @param {string} url     URL for the ajax request
@@ -127,6 +118,9 @@ var UTILS = (function () {
 
 		// Fire the request
 		xhr.send(null);
+	}
+
+
 	};
 }());
 

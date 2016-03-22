@@ -194,7 +194,7 @@ nav>.nav-section:nth-child(3){
 	text-align: center;
 }
 #quick-reports{
-	display:none;
+	
 }
 .select-reports{
 	float:left;
@@ -260,4 +260,9 @@ nav>.nav-section:nth-child(3){
 	text-align: center;
 	background-color: black;
 	color: white;
+}
+.tab-active{
+	background:rgb(235, 235, 235)!important;
+	text-decoration:black!important;
+	color:black!important;
 }

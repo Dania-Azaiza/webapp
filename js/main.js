@@ -210,7 +210,7 @@ var searchTab=function(tab, str){
 var search=function(){ 
 	var searchStr = document.getElementById("search-form").getElementsByTagName("input")[0].value;
 	var quickReports = document.getElementById("quick-reports");
-	var myTeamFolders = document.getElementById("quick-reports");
+	var myTeamFolders = document.getElementById("quick-reports"); //TODO change to  myTeamFolders
 	
 	var tabslist = document.getElementById("tabs-list").getElementsByTagName("li");
 	

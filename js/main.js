@@ -74,9 +74,9 @@ TabsKeyNavigation= function(e) {
             break;
         }
         case 13:{
-                if(selectedTabIndex==0||selectedTabIndex==2){
-               	  	submitForm(tabslist[selectedTabIndex]);
-                 }
+                // if(selectedTabIndex==0||selectedTabIndex==2){
+               	  	// submitForm(tabslist[selectedTabIndex]);
+                 // }
 
             break;
         }
@@ -188,56 +188,47 @@ var loadForm=function(tab, content){
 		select.classList.remove("hidden");
 		arrowBTN.classList.remove("hidden");
 	}
+};
+
+var searchTab=function(tab, str){
+	var fieldsets=tab.getElementsByClassName("fieldset");
+	var select=tab.getElementsByClassName("favourites-select")[0];
+
+	for(i=0;i<fieldsets.length;i++){
+		var name =fieldsets[i].getElementsByClassName("text-input")[0].value;
+		var url =fieldsets[i].getElementsByClassName("url-input")[0].value;
+		
+		if(name == str){
+			select.value = url;
+			return true;
+		}
+	}
+	
+	return false;
 }
 
-
-function savelinksReports () {
-    var name=[];
-    var url=[];
-    var array=[];
-    name = all(".reportname");
-    url = all(".reporturl");
-
-    var i;
-    for (i=0;i<3;i++)
-    {
-    	
-        var rn = name[i].children[1].value;
-        var ru = url[i].children[1].value;   
- 
-        array.push({
-                "name":rn,
-                "url":ru
-        });
-    
-        
-    }
-    var linkarray = JSON.parse(localStorage.getItem("linkarray"));
-    if(linkarray==null)
-    {
-        linkarray=[];
-          for (i=0;i<3;i++)
-    {
-        linkarray.push({
-                "name":"",
-                "url":""
-        });
-    }
-    }
-
-     for (i=0;i<3;i++)
-    {
-        linkarray[i].name=array[i].name;
-               linkarray[i].url=array[i].url;
-        
-    }
-
-    localStorage.setItem("linkarray" , JSON.stringify(linkarray));
-
-    updatelinksReports();
-
-}
-
+var search=function(){ 
+	var searchStr = document.getElementById("search-form").getElementsByTagName("input")[0].value;
+	var quickReports = document.getElementById("quick-reports");
+	var myTeamFolders = document.getElementById("quick-reports");
+	
+	var tabslist = document.getElementById("tabs-list").getElementsByTagName("li");
+	
+	if(searchTab(quickReports, searchStr))
+	{
+		getHash(tabslist[0]);
+	}
+	else if(searchTab(myTeamFolders, searchStr)){
+		getHash(tabslist[2]);
+	}
+	else{
+		var notificationsDiv = document.getElementById('notifications');
+		notificationsDiv.textContent = 'The searched report (' + searchStr + ') was not found';
+		notificationsDiv.classList.remove('hidden');
+	}
+	
+	return false;
+};
 
 
 
@@ -294,7 +285,18 @@ function savelinksReports () {
 	var submitQuickReports=quickReports.getElementsByClassName("submit")[0];
 	UTILS.addEvent(submitQuickReports, "click", function(){submitForm(quickReports);});
 	
-		// =============== Stage 6 ===============
+	// =============== Stage 5 ===============
+	var searchBox = document.getElementById("search-form");
+	UTILS.addEvent(
+		searchBox,
+		"submit",
+		function (event) {
+			event.preventDefault();
+			return search();
+		}
+	);
+	
+	// =============== Stage 6 ===============
 	// Restore previous state
 	var previousHash = LocalStorage.GetLastTab();
 	window.location.hash = previousHash;

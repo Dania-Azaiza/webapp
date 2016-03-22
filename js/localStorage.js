@@ -1,16 +1,24 @@
-var LOCALSTORAGE = 
+var LocalStorage = 
 (function () {
 
 	return {
 			SaveState: function(selectedTab, QuickReportsState, MyTeamFolderState){
 				var fullState = JSON.parse(localStorage.getItem('settings'));
 				
-				if (selectedTab === undefined || QuickReportsState === undefined || MyTeamFolderState === undefined)
-					throw Error('All parameters must be defined');
+				if (fullState == null) 
+					fullState = { };
 				
-				fullState.selectedTab = selectedTab;
-				fullState.QuickReportsState = QuickReportsState;
-				fullState.MyTeamFolderState = MyTeamFolderState;
+				if(selectedTab != undefined){
+					fullState.selectedTab = selectedTab;
+				}
+				
+				if(QuickReportsState != undefined){
+					fullState.QuickReportsState = QuickReportsState;
+				}
+				
+				if(MyTeamFolderState != undefined){
+					fullState.MyTeamFolderState = MyTeamFolderState;
+				}
 				
 				localStorage.setItem('settings', JSON.stringify(fullState));
 			},
@@ -19,8 +27,8 @@ var LOCALSTORAGE =
 			GetLastTab : function(){
 				var fullState = JSON.parse(localStorage.getItem('settings'));
 				if (!fullState) 
-					return null;
-				
+					return "";
+
 				return fullState.selectedTab;
 			},
 			
@@ -40,8 +48,4 @@ var LOCALSTORAGE =
 				return fullState.MyTeamFolderState;
 			}
 		};
-<<<<<<< HEAD
 }());
-=======
-}());
->>>>>>> origin/gh-pages

@@ -3,6 +3,9 @@ var openTabByURL=function(){
 	var url = window.location.hash;
     //  get the tab name without #
     var currentHash = url.substring(1);
+	if(currentHash == ""){
+		currentHash = "quick-reports";
+	}
     var tabslist = document.getElementById("tabs-list").getElementsByTagName("li");
 	for(i = 0;i < tabslist.length; i++)
 	{
@@ -27,7 +30,9 @@ var getHash=function(clickedTab){
         var currentHash = url.substring(1);
         //  activate tab		
 		setTab(currentHash,clickedTab);
-
+		
+		var newHash = clickedTab.getElementsByTagName("a")[0].getAttribute("rel");
+		LocalStorage.SaveState(newHash, undefined, undefined);
     }
 };
 
@@ -107,6 +112,7 @@ var submitForm=function(tab){
     var url=[];
     var reports=[];
     var flag=0;
+	var globalFlag = 0;
     var cnt=0;
     var select=tab.getElementsByClassName("favourites-select")[0];
     var arrowBTN=tab.getElementsByClassName("new-tab-btn")[0];
@@ -121,11 +127,12 @@ var submitForm=function(tab){
 		if(name[i]==""&&url[i]!==""){
 			fieldsets[i].getElementsByClassName("text-input")[0].classList.add("invalid");
 			flag=1;
-
+			globalFlag = 1;
 		}
 		if(name[i]!==""&&url[i]==""){
 			url[i]=fieldsets[i].getElementsByClassName("url-input")[0].classList.add("invalid");
 			flag=1;
+			globalFlag = 1;
 		}
 		if(name[i]==""&&url[i]==""){
 			flag=1;
@@ -149,6 +156,10 @@ var submitForm=function(tab){
 		}
 
 	}
+	
+	if(globalFlag == 0){
+			LocalStorage.SaveState(undefined, reports, undefined);
+	}
 
 	// for(i=0;i<fieldsets.length;i++){
 	// 	if(name[i]==""&&url[i]!==""){
@@ -159,6 +170,25 @@ var submitForm=function(tab){
 	// 	}
 	// }
 };
+
+var loadForm=function(tab, content){ 
+	var fieldsets=tab.getElementsByClassName("fieldset");
+	var select=tab.getElementsByClassName("favourites-select")[0];
+
+	for(i=0;i<content.length;i++){
+		fieldsets[i].getElementsByClassName("text-input")[0].value = content[i].name;
+		fieldsets[i].getElementsByClassName("url-input")[0].value = content[i].url;
+		
+		select.innerHTML=select.innerHTML+"<option>"+ content[i].name +"</option>";
+		select.getElementsByTagName("option")[i].setAttribute("value", content[i].url);
+	}
+	
+	if(content.length>0)
+	{
+		select.classList.remove("hidden");
+		arrowBTN.classList.remove("hidden");
+	}
+}
 
 
 function savelinksReports () {
@@ -224,16 +254,13 @@ function savelinksReports () {
 
 
 
-(function(){ 
-	
+(function(){ 	
 	// =============== Stage 2 ===============
-	//trigger the relevant tab by the hash value in the URL
+	// trigger the relevant tab by the hash value in the URL
 	// document.onkeydown = UTILS.TabsKeyNavigation;
 	document.addEventListener("keydown",TabsKeyNavigation);
-	openTabByURL();
 	// Add event handler for tab click
 	var tabslist = document.getElementById("tabs-list").getElementsByTagName("li");
-	
 	for(i = 0;i < tabslist.length; i++)
 	{
 		(function(index) {UTILS.addEvent(tabslist[index],"click",function(){getHash(tabslist[index]);});})(i);
@@ -266,4 +293,14 @@ function savelinksReports () {
 	UTILS.addEvent(cancelBtn, "click", function(){onSettingsClick(quickReports);});
 	var submitQuickReports=quickReports.getElementsByClassName("submit")[0];
 	UTILS.addEvent(submitQuickReports, "click", function(){submitForm(quickReports);});
+	
+		// =============== Stage 6 ===============
+	// Restore previous state
+	var previousHash = LocalStorage.GetLastTab();
+	window.location.hash = previousHash;
+	openTabByURL();
+
+	var reports = LocalStorage.GetQuickReportsState();
+	loadForm(quickReports, reports);
+	
 }());

@@ -68,6 +68,22 @@ TabsKeyNavigation= function(e) {
                 }
             break;
         }
+        case 13:{
+                if(selectedTabIndex==0||selectedTabIndex==2){
+               	  	submitForm(tabslist[selectedTabIndex]);
+                 }
+
+            break;
+        }
+        case 27:{
+                if(selectedTabIndex==0||selectedTabIndex==2){
+                	 onSettingsClick(document.getElementById(tabslist[selectedTabIndex].getElementsByTagName("a")[0].getAttribute("rel")));
+                	// alert(tabslist[selectedTabIndex].getElementsByTagName("a")[0].getAttribute("rel"));
+                	// getElementById
+                 }
+
+            break;
+        }
     }
 };
 
@@ -91,8 +107,13 @@ var submitForm=function(tab){
     var url=[];
     var reports=[];
     var flag=0;
+    var cnt=0;
+    var select=tab.getElementsByClassName("favourites-select")[0];
+    var arrowBTN=tab.getElementsByClassName("new-tab-btn")[0];
 	var fieldsets=tab.getElementsByClassName("fieldset");
+	select.innerHTML="";
 	for(i=0;i<fieldsets.length;i++){
+		flag=0;
 		fieldsets[i].getElementsByClassName("url-input")[0].classList.remove("invalid");
 		fieldsets[i].getElementsByClassName("text-input")[0].classList.remove("invalid")
 		name[i]=fieldsets[i].getElementsByClassName("text-input")[0].value;
@@ -106,21 +127,37 @@ var submitForm=function(tab){
 			url[i]=fieldsets[i].getElementsByClassName("url-input")[0].classList.add("invalid");
 			flag=1;
 		}
-		if (flag===0){
+		if(name[i]==""&&url[i]==""){
+			flag=1;
+		}
+		if (flag==0){
+
 			 reports.push({
 	                "name":name[i],
 	                "url":url[i]
 	        });
+			// alert("dania");
+			select.innerHTML=select.innerHTML+"<option>"+name[i]+"</option>";
+			// select.getElementsByTagName("option")[cnt].innerHTML=name[i];
+			 select.getElementsByTagName("option")[cnt].setAttribute("value", url[i]);
+			cnt=cnt+1;
 		}
+		if(cnt>0)
+		{
+			select.classList.remove("hidden");
+			arrowBTN.classList.remove("hidden");
+		}
+
 	}
-	for(i=0;i<fieldsets.length;i++){
-		if(name[i]==""&&url[i]!==""){
-			fieldsets[i].getElementsByClassName("text-input")[0].classList.add("invalid");
-		}
-		if(name[i]!==""&&url[i]==""){
-			url[i]=fieldsets[i].getElementsByClassName("url-input")[0].classList.add("invalid");
-		}
-	}
+
+	// for(i=0;i<fieldsets.length;i++){
+	// 	if(name[i]==""&&url[i]!==""){
+	// 		fieldsets[i].getElementsByClassName("text-input")[0].classList.add("invalid");
+	// 	}
+	// 	if(name[i]!==""&&url[i]==""){
+	// 		url[i]=fieldsets[i].getElementsByClassName("url-input")[0].classList.add("invalid");
+	// 	}
+	// }
 };
 
 
@@ -154,8 +191,6 @@ function savelinksReports () {
         linkarray.push({
                 "name":"",
                 "url":""
-
-
         });
     }
     }
@@ -169,7 +204,7 @@ function savelinksReports () {
 
     localStorage.setItem("linkarray" , JSON.stringify(linkarray));
 
-        updatelinksReports();
+    updatelinksReports();
 
 }
 

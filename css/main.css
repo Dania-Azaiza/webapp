@@ -214,14 +214,24 @@ nav>.nav-section:nth-child(3){
 }
 .settings-btn{
 	float:left;
-	background-color: white;
-
 	background-image:url(../img/icons/settings.png);
 	background-position: center;
 	background-repeat: no-repeat;
     border: medium none;
     height: 34px;
     width: 40px;
+    background-color: white;
+}
+.settings-btn-grey{
+	float:left;
+	background-image:url(../img/icons/settings.png);
+	background-position: center;
+	background-repeat: no-repeat;
+    border: medium none;
+    height: 34px;
+    width: 40px;
+    background-color: rgb(235, 235, 235);
+	
 }
 .favourites{
 	display:block;
@@ -265,4 +275,10 @@ nav>.nav-section:nth-child(3){
 	background:rgb(235, 235, 235)!important;
 	text-decoration:black!important;
 	color:black!important;
+}
+.invalid{
+	border-color:red;
+}
+input:invalid {
+  border-color:red;
 }

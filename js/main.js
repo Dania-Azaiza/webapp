@@ -1,54 +1,4 @@
 
-var onTabClick = function(element){
-// 	var tabslist = document.getElementById("tabs-list").getElementsByTagName("li");
-// 	for(i = 0;i < tabslist.length; i++)
-// 	{
-// 		  tabslist[i].setAttribute("style", "background:grey;");
-// 		  var innerTag=tabslist[i].getElementsByTagName("a")[0];
-// 		  innerTag.setAttribute("style", "color:rgb(235, 235, 235);");
-// 		  var res = innerTag.innerHTML.replace(" ", "-").replace(" ", "-");
-// 	      res = res.toLowerCase();
-// 	      document.getElementById(res).setAttribute("style", "display:none;");	  
-// 	}	
-// 	element.setAttribute("style", "background:rgb(235, 235, 235); text-decoration:black;");
-// 	var innerTag=element.getElementsByTagName("a")[0];
-// 	innerTag.setAttribute("style", "color:black;");
-//     var res = innerTag.innerHTML.replace(" ", "-").replace(" ", "-");
-//     res = res.toLowerCase();
-//     document.getElementById(res).setAttribute("style", "display:block;");
-// };
-// var onSettingsClick=function(tab){
-// 	var favouritesSelect=tab.getElementsByClassName("favourites-select")[0];
-// 	// TODO fix check drop down list size check
-// 	// if (favouritesSelect.getElements('option').length === 0) {
-// 		// tab.getElementsByClassName("settings-btn")[0].setAttribute("style", "background:red;");
-// 	// }
-// 	// else{
-// 		tab.getElementsByClassName("favourites")[0].setAttribute("style", "display:none;");
-// 	//}	
-
-alert("dania")
-
-
-};
-// var set_tab= function(clickedTab,tabId){
-// {
-// 	var tabslist = document.getElementById("tabs-list").getElementsByTagName("li");
-// 	for(i = 0;i < tabslist.length; i++)
-// 	{
-// 		  tabslist[i].setAttribute("style", "background:grey;");
-// 		  var innerTag=tabslist[i].getElementsByTagName("a")[0];
-// 		  innerTag.setAttribute("style", "color:rgb(235, 235, 235);");
-// 		  var rel=innerTag.getAttribute("rel"); 
-// 		  document.getElementById(res).setAttribute("style", "display:none;");	
-// 	}
-// 	clickedTab.setAttribute("style", "background:rgb(235, 235, 235); text-decoration:black;");
-// 	var innerTag=clickedTab.getElementsByTagName("a")[0];
-// 	innerTag.setAttribute("style", "color:black;");
-// 	document.getElementById(tabId).setAttribute("style", "display:block;");
-// };
-
-
 var openTabByURL=function(){
 	var url = window.location.hash;
     //  get the tab name without #
@@ -121,6 +71,123 @@ TabsKeyNavigation= function(e) {
     }
 };
 
+var onSettingsClick=function(tab){
+	if(tab.getElementsByTagName("button")[0].getAttribute('class').toString() =="settings-btn"){
+		tab.getElementsByTagName("button")[0].classList.remove("settings-btn");
+		tab.getElementsByTagName("button")[0].classList.add("settings-btn-grey");
+		tab.getElementsByClassName("tab-hidde")[0].classList.add("hidden");
+	}
+	else{
+		tab.getElementsByTagName("button")[0].classList.add("settings-btn");
+		tab.getElementsByTagName("button")[0].classList.remove("settings-btn-grey");
+		tab.getElementsByClassName("tab-hidde")[0].classList.remove("hidden");
+	}
+};
+
+
+
+var submitForm=function(tab){
+	var name=[];
+    var url=[];
+    var reports=[];
+    var flag=0;
+	var fieldsets=tab.getElementsByClassName("fieldset");
+	for(i=0;i<fieldsets.length;i++){
+		fieldsets[i].getElementsByClassName("url-input")[0].classList.remove("invalid");
+		fieldsets[i].getElementsByClassName("text-input")[0].classList.remove("invalid")
+		name[i]=fieldsets[i].getElementsByClassName("text-input")[0].value;
+		url[i]=fieldsets[i].getElementsByClassName("url-input")[0].value;
+		if(name[i]==""&&url[i]!==""){
+			fieldsets[i].getElementsByClassName("text-input")[0].classList.add("invalid");
+			flag=1;
+
+		}
+		if(name[i]!==""&&url[i]==""){
+			url[i]=fieldsets[i].getElementsByClassName("url-input")[0].classList.add("invalid");
+			flag=1;
+		}
+		if (flag===0){
+			 reports.push({
+	                "name":name[i],
+	                "url":url[i]
+	        });
+		}
+	}
+	for(i=0;i<fieldsets.length;i++){
+		if(name[i]==""&&url[i]!==""){
+			fieldsets[i].getElementsByClassName("text-input")[0].classList.add("invalid");
+		}
+		if(name[i]!==""&&url[i]==""){
+			url[i]=fieldsets[i].getElementsByClassName("url-input")[0].classList.add("invalid");
+		}
+	}
+};
+
+
+function savelinksReports () {
+    var name=[];
+    var url=[];
+    var array=[];
+    name = all(".reportname");
+    url = all(".reporturl");
+
+    var i;
+    for (i=0;i<3;i++)
+    {
+    	
+        var rn = name[i].children[1].value;
+        var ru = url[i].children[1].value;   
+ 
+        array.push({
+                "name":rn,
+                "url":ru
+        });
+    
+        
+    }
+    var linkarray = JSON.parse(localStorage.getItem("linkarray"));
+    if(linkarray==null)
+    {
+        linkarray=[];
+          for (i=0;i<3;i++)
+    {
+        linkarray.push({
+                "name":"",
+                "url":""
+
+
+        });
+    }
+    }
+
+     for (i=0;i<3;i++)
+    {
+        linkarray[i].name=array[i].name;
+               linkarray[i].url=array[i].url;
+        
+    }
+
+    localStorage.setItem("linkarray" , JSON.stringify(linkarray));
+
+        updatelinksReports();
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 (function(){ 
 	
@@ -156,9 +223,12 @@ TabsKeyNavigation= function(e) {
 		}
 	});	
 	// =============== Stage 4 ===============
+	//clicking the wheel toggle the form visibility
 	var settingsBtnQuickReports = document.getElementById("settings-btn-quick-reports");
 	var quickReports = document.getElementById("quick-reports");
-	
 	UTILS.addEvent(settingsBtnQuickReports, "click", function(){onSettingsClick(quickReports);});
-	
+	var cancelBtn= document.getElementsByClassName("tab-footer")[0].getElementsByTagName("a")[0];
+	UTILS.addEvent(cancelBtn, "click", function(){onSettingsClick(quickReports);});
+	var submitQuickReports=quickReports.getElementsByClassName("submit")[0];
+	UTILS.addEvent(submitQuickReports, "click", function(){submitForm(quickReports);});
 }());

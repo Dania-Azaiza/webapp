@@ -146,40 +146,36 @@ var submitForm=function(tab){
 			globalFlag = 1;
 		}
 		if(name[i]==""&&url[i]==""){
-			flag=1;
-		}
-		if (flag==0){
-
-			 reports.push({
-	                "name":name[i],
-	                "url":url[i]
-	        });
-			// alert("dania");
-			select.innerHTML=select.innerHTML+"<option>"+name[i]+"</option>";
-			// select.getElementsByTagName("option")[cnt].innerHTML=name[i];
-			 select.getElementsByTagName("option")[cnt].setAttribute("value", url[i]);
-			cnt=cnt+1;
-		}
-		if(cnt>0)
-		{
-			select.classList.remove("hidden");
-			arrowBTN.classList.remove("hidden");
+			flag=2;
 		}
 
+		if (flag==0||flag==2){
+			reports.push({
+	       		 "name":name[i],
+	       		 "url":url[i]
+	   		 });
+			if(flag==0){
+				select.innerHTML=select.innerHTML+"<option>"+name[i]+"</option>";
+				select.getElementsByTagName("option")[cnt].setAttribute("value", url[i]);
+				cnt=cnt+1;
+			}
+		}
+
+	}
+	if(cnt>0&&globalFlag == 0)
+	{
+		select.classList.remove("hidden");
+		arrowBTN.classList.remove("hidden");
+	}
+	else{
+		select.classList.add("hidden");
+		arrowBTN.classList.add("hidden");
 	}
 	
 	if(globalFlag == 0){
 			LocalStorage.SaveState(undefined, reports, undefined);
 	}
 
-	// for(i=0;i<fieldsets.length;i++){
-	// 	if(name[i]==""&&url[i]!==""){
-	// 		fieldsets[i].getElementsByClassName("text-input")[0].classList.add("invalid");
-	// 	}
-	// 	if(name[i]!==""&&url[i]==""){
-	// 		url[i]=fieldsets[i].getElementsByClassName("url-input")[0].classList.add("invalid");
-	// 	}
-	// }
 };
 
 var loadForm=function(tab, content){ 

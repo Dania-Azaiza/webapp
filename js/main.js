@@ -1,5 +1,6 @@
 
 var openTabByURL=function(){
+	var loc=window.location
 	var url = window.location.hash;
     //  get the tab name without #
     var currentHash = url.substring(1);
@@ -207,7 +208,7 @@ var selectFrame=function(tab){
 	var arrowBTN=tab.getElementsByClassName("new-tab-btn")[0];
 	var value=tab.getElementsByTagName("select")[0].value;
 	arrowBTN.setAttribute("value", value);
-	alert(tab.getElementsByTagName("select")[0].value);
+	window.open(value,'_blank');
 
 };
 

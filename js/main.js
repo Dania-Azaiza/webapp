@@ -12,13 +12,19 @@ var openTabByURL=function(){
 		if(tabslist[i].getElementsByTagName("a")[0].getAttribute("rel")===currentHash)
 		{
 			tabslist[i].classList.add('tab-active');
+			tabslist[i].getElementsByTagName("a")[0].classList.add('tab-active');
+			document.getElementById(tabslist[i].getElementsByTagName("a")[0].getAttribute("rel")).classList.remove('hidden');
 		}
 		else{
 			tabslist[i].classList.remove('tab-active');
+			tabslist[i].getElementsByTagName("a")[0].classList.remove('tab-active');
+			document.getElementById(tabslist[i].getElementsByTagName("a")[0].getAttribute("rel")).classList.add("hidden");
 		}
-		document.getElementById(tabslist[i].getElementsByTagName("a")[0].getAttribute("rel")).classList.add("hidden");
+		
 	}
 	document.getElementById(currentHash).classList.remove("hidden");
+	var newHash = currentHash;
+	LocalStorage.SaveState(newHash, undefined, undefined);
 };
 
 
@@ -41,11 +47,16 @@ var setTab=function(currentHash,clickedTab){
 	for(i = 0;i < tabslist.length; i++)
 	{
 		tabslist[i].classList.remove('tab-active');
+		tabslist[i].getElementsByTagName("a")[0].classList.remove('tab-active');;
+		document.getElementById(tabslist[i].getElementsByTagName("a")[0].getAttribute("rel")).classList.add('hidden');
 	}
 	clickedTab.classList.add('tab-active');
-	document.getElementById(currentHash).classList.add("hidden");
-	document.getElementById(clickedTab.getElementsByTagName("a")[0].getAttribute("rel")).classList.remove("hidden");
+	clickedTab.getElementsByTagName("a")[0].classList.add('tab-active');
+	clickedTab.getElementsByTagName("a")[0].classList.add('tab-active');
+	document.getElementById(clickedTab.getElementsByTagName("a")[0].getAttribute("rel")).classList.remove('hidden');
+	window.location.hash=clickedTab.getElementsByTagName("a")[0].getAttribute("rel");
 };
+
 var getSelectedTab=function(tabsList) {
 
     for (var i = 0; i < tabsList.length; i++) {
@@ -245,7 +256,13 @@ var search=function(){
 
 
 
-(function(){ 	
+(function(){ 
+	var previousHash = LocalStorage.GetLastTab();
+	if(window.location.hash==""){
+		window.location.hash = previousHash;
+	}
+	openTabByURL();	
+
 	// =============== Stage 2 ===============
 	// trigger the relevant tab by the hash value in the URL
 	// document.onkeydown = UTILS.TabsKeyNavigation;
@@ -298,9 +315,7 @@ var search=function(){
 	
 	// =============== Stage 6 ===============
 	// Restore previous state
-	var previousHash = LocalStorage.GetLastTab();
-	window.location.hash = previousHash;
-	openTabByURL();
+
 
 	var reports = LocalStorage.GetQuickReportsState();
 	loadForm(quickReports, reports);

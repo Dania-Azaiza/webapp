@@ -298,6 +298,15 @@ var search=function(){
 	var submitQuickReports=quickReports.getElementsByClassName("submit")[0];
 	UTILS.addEvent(submitQuickReports, "click", function(){submitForm(quickReports);});
 	
+	var settingsBtnTeam = document.getElementById("settings-btn-team");
+	var team = document.getElementById("my-team-folders");
+	UTILS.addEvent(settingsBtnTeam, "click", function(){onSettingsClick(team);});
+	var cancelBtn2= document.getElementsByClassName("tab-footer")[1].getElementsByTagName("a")[0];
+	UTILS.addEvent(cancelBtn2, "click", function(){onSettingsClick(team);});
+	var submitTeam=team.getElementsByClassName("submit")[0];
+	UTILS.addEvent(submitTeam, "click", function(){submitForm(team);});
+
+	
 	// =============== Stage 5 ===============
 	var searchBox = document.getElementById("search-form");
 	UTILS.addEvent(

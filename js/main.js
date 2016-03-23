@@ -116,8 +116,6 @@ var onSettingsClick=function(tab){
 	}
 };
 
-
-
 var submitForm=function(tab){
 	var name=[];
     var url=[];
@@ -173,7 +171,13 @@ var submitForm=function(tab){
 	}
 	
 	if(globalFlag == 0){
+		if(document.getElementById("quick-reports")==tab)
+		{
 			LocalStorage.SaveState(undefined, reports, undefined);
+		}
+		else{
+			LocalStorage.SaveState(undefined, undefined, reports);
+		}
 	}
 
 };
@@ -181,6 +185,7 @@ var submitForm=function(tab){
 var loadForm=function(tab, content){ 
 	var fieldsets=tab.getElementsByClassName("fieldset");
 	var select=tab.getElementsByClassName("favourites-select")[0];
+	var arrowBTN=tab.getElementsByClassName("new-tab-btn")[0];
 
 	for(i=0;i<content.length;i++){
 		fieldsets[i].getElementsByClassName("text-input")[0].value = content[i].name;
@@ -189,12 +194,21 @@ var loadForm=function(tab, content){
 		select.innerHTML=select.innerHTML+"<option>"+ content[i].name +"</option>";
 		select.getElementsByTagName("option")[i].setAttribute("value", content[i].url);
 	}
+
 	
 	if(content.length>0)
 	{
 		select.classList.remove("hidden");
 		arrowBTN.classList.remove("hidden");
 	}
+};
+
+var selectFrame=function(tab){
+	var arrowBTN=tab.getElementsByClassName("new-tab-btn")[0];
+	var value=tab.getElementsByTagName("select")[0].value;
+	arrowBTN.setAttribute("value", value);
+	alert(tab.getElementsByTagName("select")[0].value);
+
 };
 
 var searchTab=function(tab, str){
@@ -217,7 +231,7 @@ var searchTab=function(tab, str){
 var search=function(){ 
 	var searchStr = document.getElementById("search-form").getElementsByTagName("input")[0].value;
 	var quickReports = document.getElementById("quick-reports");
-	var myTeamFolders = document.getElementById("quick-reports"); //TODO change to  myTeamFolders
+	var myTeamFolders = document.getElementById("my-team-folders"); //TODO change to  myTeamFolders
 	
 	var tabslist = document.getElementById("tabs-list").getElementsByTagName("li");
 	
@@ -237,21 +251,6 @@ var search=function(){
 	return false;
 };
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 (function(){ 
 	var previousHash = LocalStorage.GetLastTab();
 	if(window.location.hash==""){
@@ -269,9 +268,6 @@ var search=function(){
 	{
 		(function(index) {UTILS.addEvent(tabslist[index],"click",function(){getHash(tabslist[index]);});})(i);
 	}	
-	/************************************************/
-	
-
 	// =============== Stage 3 ===============
 	UTILS.ajax('./data/config.json', { 
 		type: 'json',
@@ -297,6 +293,8 @@ var search=function(){
 	UTILS.addEvent(cancelBtn, "click", function(){onSettingsClick(quickReports);});
 	var submitQuickReports=quickReports.getElementsByClassName("submit")[0];
 	UTILS.addEvent(submitQuickReports, "click", function(){submitForm(quickReports);});
+	var expandReports=quickReports.getElementsByClassName("new-tab-btn")[0];
+	UTILS.addEvent(expandReports, "click", function(){selectFrame(quickReports);});
 	
 	var settingsBtnTeam = document.getElementById("settings-btn-team");
 	var team = document.getElementById("my-team-folders");
@@ -305,6 +303,9 @@ var search=function(){
 	UTILS.addEvent(cancelBtn2, "click", function(){onSettingsClick(team);});
 	var submitTeam=team.getElementsByClassName("submit")[0];
 	UTILS.addEvent(submitTeam, "click", function(){submitForm(team);});
+	var expandTeam=team.getElementsByClassName("new-tab-btn")[0];
+	UTILS.addEvent(expandTeam, "click", function(){selectFrame(team);});
+	// UTILS.addEvent(expandTeam, "click", function(){selectFrame(team);});
 
 	
 	// =============== Stage 5 ===============
@@ -320,9 +321,13 @@ var search=function(){
 	
 	// =============== Stage 6 ===============
 	// Restore previous state
-
-
 	var reports = LocalStorage.GetQuickReportsState();
 	loadForm(quickReports, reports);
+
+	var folders=LocalStorage.GetMyTeamFolder();
+	loadForm(team, folders);
+
+
+
 	
 }());

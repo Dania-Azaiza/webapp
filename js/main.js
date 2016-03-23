@@ -95,8 +95,6 @@ TabsKeyNavigation= function(e) {
         case 27:{
                 if(selectedTabIndex==0||selectedTabIndex==2){
                 	 onSettingsClick(document.getElementById(tabslist[selectedTabIndex].getElementsByTagName("a")[0].getAttribute("rel")));
-                	// alert(tabslist[selectedTabIndex].getElementsByTagName("a")[0].getAttribute("rel"));
-                	// getElementById
                  }
 
             break;

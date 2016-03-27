@@ -26,6 +26,9 @@ time, mark, audio, video {
 .left{
 	float:left;
 }
+.right{
+	float:right;
+}
 /**********************************************************************************************************/
 body{
 	background: url(../img/body-background.jpg);
@@ -68,7 +71,7 @@ header>a>img{
 	background: black;
 	float:left;
 	margin-top: 20px;
-	margin-bottom: 20px;
+	margin-bottom: 50px;
 	position: relative;
 	cursor: pointer;
 }
@@ -171,7 +174,7 @@ nav>.nav-section:nth-child(3){
 
 .tab-wrapper{
 	max-width: 100%;
-	height:700px;
+	height:730px;
 }
 .fieldset{
 	background:rgb(235, 235, 235); 
@@ -205,6 +208,15 @@ nav>.nav-section:nth-child(3){
 }
 .new-tab-btn{
 	float:left;
+
+	background-image: url(../img/icons/expand.png);
+	background-position: center;
+	background-repeat: no-repeat;
+    border: medium none;
+    height: 34px;
+    width: 40px;
+}
+.new-tab-btn-fold{
 
 	background-image: url(../img/icons/expand.png);
 	background-position: center;
@@ -295,6 +307,6 @@ input:invalid {
 	clear:right;
 }
 iframe{
-	height: 100%;
+	height: 90%;
 	width:100%;
 }

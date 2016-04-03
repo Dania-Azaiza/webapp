@@ -172,6 +172,10 @@ var submitForm=function(tab){
 	{
 		select.classList.remove("hidden");
 		arrowBTN.classList.remove("hidden");
+		tab.getElementsByTagName("button")[0].classList.remove("settings-btn");
+		tab.getElementsByTagName("button")[0].classList.add("settings-btn-grey");
+		tab.getElementsByClassName("tab-hidde")[0].classList.add("hidden");
+
 	}
 	else{
 		select.classList.add("hidden");
@@ -187,10 +191,6 @@ var submitForm=function(tab){
 			LocalStorage.SaveState(undefined, undefined, reports);
 		}
 	}
-	
-	tab.getElementsByTagName("button")[0].classList.remove("settings-btn");
-	tab.getElementsByTagName("button")[0].classList.add("settings-btn-grey");
-	tab.getElementsByClassName("tab-hidde")[0].classList.add("hidden");
 		
 	onFavouritesChange(tab);
 };
@@ -199,16 +199,21 @@ var loadForm=function(tab, content){
 	var fieldsets=tab.getElementsByClassName("fieldset");
 	var select=tab.getElementsByClassName("favourites-select")[0];
 	var arrowBTN=tab.getElementsByClassName("new-tab-btn")[0];
+	var cnt=0;
 
 	for(i=0;i<content.length;i++){
-		fieldsets[i].getElementsByClassName("text-input")[0].value = content[i].name;
-		fieldsets[i].getElementsByClassName("url-input")[0].value = content[i].url;
-		
-		select.innerHTML=select.innerHTML+"<option>"+ content[i].name +"</option>";
-		select.getElementsByTagName("option")[i].setAttribute("value", content[i].url);
+		if(content[i].name!==""&&content[i].url!=="")
+		{	/*new changes*/
+			cnt=cnt+1;
+			fieldsets[i].getElementsByClassName("text-input")[0].value = content[i].name;
+			fieldsets[i].getElementsByClassName("url-input")[0].value = content[i].url;
+			
+			select.innerHTML=select.innerHTML+"<option>"+ content[i].name +"</option>";
+			select.getElementsByTagName("option")[i].setAttribute("value", content[i].url);
+		}
 	}
 
-	if(content.length>0)
+	if(content.length>0&&cnt!==0)
 	{
 		select.classList.remove("hidden");
 		arrowBTN.classList.remove("hidden");

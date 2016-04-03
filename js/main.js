@@ -115,6 +115,15 @@ var onSettingsClick=function(tab){
 	}
 };
 
+onFavouritesChange=function(tab){
+	var select=tab.getElementsByClassName("favourites-select")[0];
+	if(select.length > 0){
+		var SelectedValue = select.options[select.selectedIndex].value;
+		var iframe = tab.getElementsByTagName("iframe")[0];
+		iframe.src = SelectedValue;
+	}
+}
+
 var submitForm=function(tab){
 	var name=[];
     var url=[];
@@ -178,7 +187,12 @@ var submitForm=function(tab){
 			LocalStorage.SaveState(undefined, undefined, reports);
 		}
 	}
-
+	
+	tab.getElementsByTagName("button")[0].classList.remove("settings-btn");
+	tab.getElementsByTagName("button")[0].classList.add("settings-btn-grey");
+	tab.getElementsByClassName("tab-hidde")[0].classList.add("hidden");
+		
+	onFavouritesChange(tab);
 };
 
 var loadForm=function(tab, content){ 
@@ -194,12 +208,16 @@ var loadForm=function(tab, content){
 		select.getElementsByTagName("option")[i].setAttribute("value", content[i].url);
 	}
 
-	
 	if(content.length>0)
 	{
 		select.classList.remove("hidden");
 		arrowBTN.classList.remove("hidden");
+		tab.getElementsByTagName("button")[0].classList.remove("settings-btn");
+		tab.getElementsByTagName("button")[0].classList.add("settings-btn-grey");
+		tab.getElementsByClassName("tab-hidde")[0].classList.add("hidden");
 	}
+	
+	onFavouritesChange(tab);
 };
 
 var selectFrame=function(tab){
@@ -294,6 +312,9 @@ var search=function(){
 	UTILS.addEvent(submitQuickReports, "click", function(){submitForm(quickReports);});
 	var expandReports=quickReports.getElementsByClassName("new-tab-btn")[0];
 	UTILS.addEvent(expandReports, "click", function(){selectFrame(quickReports);});
+	var select = quickReports.getElementsByClassName("favourites-select")[0];
+	UTILS.addEvent(select, "change", function(){onFavouritesChange(quickReports);});
+
 	
 	var settingsBtnTeam = document.getElementById("settings-btn-team");
 	var team = document.getElementById("my-team-folders");
@@ -304,7 +325,11 @@ var search=function(){
 	UTILS.addEvent(submitTeam, "click", function(){submitForm(team);});
 	var expandTeam=team.getElementsByClassName("new-tab-btn")[0];
 	UTILS.addEvent(expandTeam, "click", function(){selectFrame(team);});
+	var select = team.getElementsByClassName("favourites-select")[0];
+	UTILS.addEvent(select, "change", function(){onFavouritesChange(team);});
 	// UTILS.addEvent(expandTeam, "click", function(){selectFrame(team);});
+	
+	
 
 	
 	// =============== Stage 5 ===============
@@ -326,7 +351,4 @@ var search=function(){
 	var folders=LocalStorage.GetMyTeamFolder();
 	loadForm(team, folders);
 
-
-
-	
 }());

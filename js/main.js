@@ -260,9 +260,11 @@ var search=function(){
 	if(searchTab(quickReports, searchStr))
 	{
 		getHash(tabslist[0]);
+		onFavouritesChange(quickReports);
 	}
 	else if(searchTab(myTeamFolders, searchStr)){
 		getHash(tabslist[2]);
+		onFavouritesChange(myTeamFolders);
 	}
 	else{
 		var notificationsDiv = document.getElementById('notifications');
